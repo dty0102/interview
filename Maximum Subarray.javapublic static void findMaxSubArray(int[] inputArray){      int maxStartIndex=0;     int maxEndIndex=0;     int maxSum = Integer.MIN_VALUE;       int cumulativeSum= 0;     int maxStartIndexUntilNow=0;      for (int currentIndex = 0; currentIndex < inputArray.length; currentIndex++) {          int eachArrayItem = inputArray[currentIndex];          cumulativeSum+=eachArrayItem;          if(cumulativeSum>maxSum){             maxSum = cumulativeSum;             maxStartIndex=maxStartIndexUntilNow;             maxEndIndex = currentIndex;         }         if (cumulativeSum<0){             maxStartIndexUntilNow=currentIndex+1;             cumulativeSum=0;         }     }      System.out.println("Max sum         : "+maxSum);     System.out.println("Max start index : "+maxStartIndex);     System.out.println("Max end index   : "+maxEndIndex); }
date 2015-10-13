@@ -1,0 +1,52 @@
+int maxsum = Integer.MIN_VALUE;
+int maxl = -1;
+int maxr = -1;
+for (int left = 0; left < array.length; left++) {
+    int sum = 0;
+    for (int right = left; right < array.length; right++) {
+        sum += array[right];
+        if (sum > maxsum) {
+            maxsum = sum;
+            maxl = left;
+            maxr = right;
+        }
+    }
+}
+
+// if return just sum....
+return maxsum;
+
+// if return array:
+return Arrays.copyOfRange(array, maxl, maxr + 1);
+
+
+public static void findMaxSubArray(int[] inputArray){
+
+    int maxStartIndex=0;
+    int maxEndIndex=0;
+    int maxSum = Integer.MIN_VALUE; 
+
+    int cumulativeSum= 0;
+    int maxStartIndexUntilNow=0;
+
+    for (int currentIndex = 0; currentIndex < inputArray.length; currentIndex++) {
+
+        int eachArrayItem = inputArray[currentIndex];
+
+        cumulativeSum+=eachArrayItem;
+
+        if(cumulativeSum>maxSum){
+            maxSum = cumulativeSum;
+            maxStartIndex=maxStartIndexUntilNow;
+            maxEndIndex = currentIndex;
+        }
+        if (cumulativeSum<0){
+            maxStartIndexUntilNow=currentIndex+1;
+            cumulativeSum=0;
+        }
+    }
+
+    System.out.println("Max sum         : "+maxSum);
+    System.out.println("Max start index : "+maxStartIndex);
+    System.out.println("Max end index   : "+maxEndIndex);
+}
